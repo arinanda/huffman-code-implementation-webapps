@@ -149,5 +149,10 @@ Homestead.json
 # Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
 
 
+# Compressor
+
+upload/
+
+
 
 # End of https://www.gitignore.io/api/laravel,intellij+all,phpstorm+all
