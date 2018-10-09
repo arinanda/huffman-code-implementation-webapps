@@ -32,7 +32,8 @@
             <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Huffman Code Implementation</h2>
-                    <form method="POST">
+                    <form method="post" action="{{url('/submit')}}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
                         <div class="input-group">
                             <label class="label">File</label>
                             <input class="" type="file" name="file">
@@ -53,7 +54,7 @@
                         <div class="input-group">
                             <label class="label">Method</label>
                             <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="subject">
+                                <select name="method">
                                     <option disabled="disabled" selected="selected">Choose option</option>
                                     <option value="1">Huffman Coding</option>
                                     <option value="2">Adaptive Huffman</option>
