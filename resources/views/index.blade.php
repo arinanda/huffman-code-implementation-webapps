@@ -63,6 +63,15 @@
                                 <div class="select-dropdown"></div>
                             </div>
                         </div>
+                        <div class="input-group">
+                            <label class="label"></label>
+                            <div class="p-t-10">
+                                <label class="radio-container">
+                                    <input type="checkbox" name="as_file" value="true">Download when complete<br>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
                         <div class="p-t-15">
                             <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
                         </div>
