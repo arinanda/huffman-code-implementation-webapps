@@ -36,17 +36,17 @@
                         {{ csrf_field() }}
                         <div class="input-group">
                             <label class="label">File</label>
-                            <input class="" type="file" name="file">
+                            <input class="" type="file" name="input_file">
                         </div>
                         <div class="input-group">
                             <label class="label"></label>
                             <div class="p-t-10">
                                 <label class="radio-container m-r-45">Compress
-                                    <input type="radio" checked="checked" name="todo" value="1">
+                                    <input type="radio" checked="checked" name="compression_method" value="compress">
                                     <span class="checkmark"></span>
                                 </label>
                                 <label class="radio-container">Decompress
-                                    <input type="radio" name="todo" value="2">
+                                    <input type="radio" name="todo" value="decompress">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
@@ -54,11 +54,11 @@
                         <div class="input-group">
                             <label class="label">Method</label>
                             <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="method">
+                                <select name="technique">
                                     <option disabled="disabled" selected="selected">Choose option</option>
-                                    <option value="1">Huffman Coding</option>
-                                    <option value="2">Adaptive Huffman</option>
-                                    <option value="3">Golomb / Rice / Tunstall Code</option>
+                                    <option value="huffman">Huffman Coding</option>
+                                    <option value="adaptive_huffman">Adaptive Huffman</option>
+                                    <option value="tunstall">Golomb / Rice / Tunstall Code</option>
                                 </select>
                                 <div class="select-dropdown"></div>
                             </div>
