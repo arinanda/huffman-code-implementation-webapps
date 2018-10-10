@@ -42,11 +42,11 @@
                             <label class="label"></label>
                             <div class="p-t-10">
                                 <label class="radio-container m-r-45">Compress
-                                    <input type="radio" checked="checked" name="compression_method" value="compress">
+                                    <input type="radio" name="compression_method" value="compress">
                                     <span class="checkmark"></span>
                                 </label>
                                 <label class="radio-container">Decompress
-                                    <input type="radio" name="todo" value="decompress">
+                                    <input type="radio" name="compression_method" value="decompress">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
