@@ -67,4 +67,4 @@ def remove_padding(padded_encoded_text):
 
 
 def get_compression_ration(compressed, original):
-    return (len(original) - len(compressed)) / len(original)
+    return len(compressed) / len(original)
