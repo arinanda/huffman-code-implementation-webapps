@@ -28,7 +28,7 @@ def build_code(probs, n):
         del code[char]
 
     for i, k in enumerate(code):
-        code[k] = '{:03b}'.format(i)
+        code[k] = ('{:0%db}' % n).format(i)
     return code
 
 
@@ -50,7 +50,7 @@ def save(b, codes, filename):
         output.write(b)
 
 
-def compress(filename, n=3):
+def compress(filename, n=16):
     text = util.load_file_as_text(filename)
     probs = calc_prob(text)
     codes = build_code(probs, n)
