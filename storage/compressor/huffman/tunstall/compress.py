@@ -19,18 +19,17 @@ def calc_prob(text):
 def build_code(probs, n):
     size = len(probs)
     iterations = (2 ** n - size) // (size - 1)
-    symbols = probs.keys()
+    code = probs.copy()
 
-    while iterations > 0:
-        char, char_prob = max(probs, key=lambda k: probs[k])
+    for _ in range(iterations):
+        char, char_prob = max(code.items(), key=lambda kv: kv[1])
+        for s in probs:
+            code[char + s] = char_prob * probs[s]
+        del code[char]
 
-        for s in symbols:
-            probs[char + s] = char_prob * probs[s]
-        del probs[char]
-
-    for i, k in enumerate(probs):
-        probs[k] = '{:03b}'.format(i)
-    return probs
+    for i, k in enumerate(code):
+        code[k] = '{:03b}'.format(i)
+    return code
 
 
 def encode(text, code):
@@ -51,7 +50,7 @@ def save(b, codes, filename):
         output.write(b)
 
 
-def compress(filename, n=4):
+def compress(filename, n=3):
     text = util.load_file_as_text(filename)
     probs = calc_prob(text)
     codes = build_code(probs, n)
