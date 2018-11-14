@@ -12,4 +12,6 @@
 */
 
 Route::view('/', 'index');
+Route::view('/arithmetic', 'arithmetic');
 Route::post('/submit', 'SubmitController@submit');
+Route::post('/submit-arithmetic', 'SubmitController@submitArithmetic');
