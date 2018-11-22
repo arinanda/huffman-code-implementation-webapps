@@ -11,7 +11,7 @@
 |
 */
 
-Route::view('/', 'index');
+Route::view('/huffman', 'huffman');
 Route::view('/arithmetic', 'arithmetic');
+Route::view('/dictionary', 'dictionary');
 Route::post('/submit', 'SubmitController@submit');
-Route::post('/submit-arithmetic', 'SubmitController@submitArithmetic');

@@ -10,7 +10,7 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title>Arithmetic Coding</title>
+    <title>Dictionary Coding</title>
 
     <!-- Icons font CSS-->
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -31,7 +31,7 @@
     <div class="wrapper wrapper--w680">
         <div class="card card-4">
             <div class="card-body">
-                <h2 class="title">Arithmetic Coding Implementation</h2>
+                <h2 class="title">Dictionary Coding Implementation</h2>
                 <form method="post" action="{{url('/submit')}}" enctype="multipart/form-data">
 
                     {{ csrf_field() }}
@@ -55,7 +55,17 @@
                         </div>
                     </div>
 
-                    <input name="technique" value="arithmetic" hidden>
+                    <div class="input-group">
+                        <label class="label">Method</label>
+                        <div class="rs-select2 js-select-simple select--no-search">
+                            <select name="technique">
+                                <option disabled="disabled" selected="selected">Choose option</option>
+                                <option value="lzss">LZSS</option>
+                                <option value="lzw">LZW</option>
+                            </select>
+                            <div class="select-dropdown"></div>
+                        </div>
+                    </div>
 
                     <div class="input-group">
                         <label class="label">Response Type</label>

@@ -66,4 +66,4 @@ def compress(filename):
     encoded_bytes = util.to_byte_array(encoded_text)
     output = util.get_output_filename(filename)
     save(encoded_bytes, codes, output)
-    print(util.get_compression_ration(encoded_bytes, text))
+    print(util.get_compression_ratio(encoded_bytes, text))

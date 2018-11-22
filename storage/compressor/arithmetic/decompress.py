@@ -35,11 +35,10 @@ def save(text, filename):
         output.write(text)
 
 
-def decompress(filename, chars=None, probs=None):
+def decompress(filename):
     compressed_text = util.load_file_as_byte(filename)
     ln, ranges, encoded_bytes = extract(compressed_text)
     encoded_value = struct.unpack('f', encoded_bytes)[0]
-    print(encoded_value)
     decoded_text = decode(encoded_value, ln, ranges)
     output = util.get_original_filename(filename)
     save(decoded_text, output)

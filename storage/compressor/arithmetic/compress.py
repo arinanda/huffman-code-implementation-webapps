@@ -31,11 +31,10 @@ def encode(text, ranges):
     upper = 1.0
 
     for c in text:
-        if c in ranges:
-            width = upper - lower
-            l, u = ranges[c]
-            upper = lower + width * u
-            lower = lower + width * l
+        width = upper - lower
+        l, u = ranges[c]
+        upper = lower + width * u
+        lower = lower + width * l
 
     return (lower + upper) / 2.0
 
@@ -49,12 +48,12 @@ def save(b, ranges, ln, filename):
         output.write(b)
 
 
-def compress(filename, chars, probs):
+def compress(filename):
     text = util.load_file_as_text(filename)
-    probs = {chars.split(',')[i]: float(probs.split(',')[i]) for i in range(len(probs.split(',')))}
+    probs = util.calc_prob(text)
     ranges = calc_range(probs)
     encoded_value = encode(text, ranges)
     encoded_bytes = bytearray(struct.pack("f", encoded_value))
     output = util.get_output_filename(filename)
     save(encoded_bytes, ranges, len(text), output)
-    print(util.get_compression_ration(encoded_bytes, text))
+    print(util.get_compression_ratio(encoded_bytes, text))

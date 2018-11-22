@@ -1,4 +1,26 @@
+import ast
 import os
+from collections import defaultdict
+
+
+class Compressor:
+    extension = 'output'
+
+    def compress(self, filename):
+        text = load_file_as_text(filename)
+        encoded = self.encode(text, **self.get_encoding_args(text))
+        encoded_bytes = self.get_encoded_bytes(encoded)
+        save_file_as_bytes(get_output_filename(filename, self.extension), encoded_bytes)
+        print(get_compression_ratio(encoded_bytes, text))
+
+    def get_encoding_args(self, text):
+        return {}
+
+    def encode(self, text, **kwargs):
+        return text
+
+    def get_encoded_bytes(self, encoded):
+        return encoded
 
 
 class Node:
@@ -36,7 +58,6 @@ def get_output_filename(filename, extension='output'):
 
 def get_original_filename(filename):
     return get_output_filename(filename)
-    # return os.path.splitext(filename)[0]
 
 
 def to_byte_array(text):
@@ -66,5 +87,31 @@ def remove_padding(padded_encoded_text):
     return padded_encoded_text[8:-padding_length]
 
 
-def get_compression_ration(compressed, original):
+def get_compression_ratio(compressed, original):
     return len(compressed) / len(original)
+
+
+def calc_freq(text):
+    freq = defaultdict(int)
+    for char in text:
+        freq[char] += 1
+    return {k: freq[k] for k in sorted(freq)}
+
+
+def calc_prob(text):
+    freq = calc_freq(text)
+    prob = dict(map(lambda k: (k, freq[k] / len(text)), freq))
+    return prob
+
+
+def save_file(filename, mode, output):
+    with open(filename, mode) as out_file:
+        out_file.write(output)
+
+
+def save_file_as_text(filename, output_text):
+    save_file(filename, 'wt', output_text)
+
+
+def save_file_as_bytes(filename, output_bytes):
+    save_file(filename, 'wb', output_bytes)

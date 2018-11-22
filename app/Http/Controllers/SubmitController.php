@@ -3,62 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Symfony\Component\Process\Process;
-use Illuminate\Support\Facades\Storage;
 
 class SubmitController extends Controller
 {
-    public function submit(Request $request){
+    private $PYTHON_COMMAND = 'python ../storage/compressor/app.py';
+    private $STORAGE_PATH = 'storage/upload';
+
+    public function submit(Request $request) {
         if ($request->input_file->isValid()) {
             $technique = $request->technique;
-            $method = $request->compression_method;
+            $method = $request->mode;
             $uuid = uniqid();
-            $path = $request->input_file->move(base_path('storage/upload'), "$uuid");
-            $as_file = $request->as_file;
+            $path = $request->input_file->move(base_path($this->STORAGE_PATH), "$uuid");
+            $response = $request->response;
 
             $out = [];
             $status = 0;
-            exec(
-                "python ../storage/compressor/app.py $technique $method upload/$path 2>&1", $out, $status);
+            $command = "$this->PYTHON_COMMAND $technique $method $path 2>&1";
+            exec($command, $out, $status);
+            $out = implode('', $out);
 
-            $compression_ratio = floatval(implode('', $out)) * 100;
-
-            if ($status == 0) {
-                if ($as_file)
-                    return response()->download(storage_path("upload/$uuid.output"));
-                else
-                    return "compression ratio: $compression_ratio% <a href=\"/storage/$uuid.output\">download</a>";
-            }
-            abort(500);
-        }
-    }
-
-    public function submitArithmetic(Request $request) {
-        if ($request->input_file->isValid()) {
-            $method = $request->compression_method;
-            $uuid = uniqid();
-            $path = $request->input_file->move(base_path('storage/upload'), "$uuid");
-            $chars = implode(",", $request->chars);
-            $probs = implode(",", $request->probs);
-            $as_file = $request->as_file;
-
-            $out = [];
-            $status = 0;
-//            dd("python ../storage/compressor/app.py arithmetic $method upload/$path $chars $probs 2>&1");
-            exec(
-                "python ../storage/compressor/app.py arithmetic $method $path $chars $probs 2>&1", $out, $status);
-
-            //dd($out);
-            $compression_ratio = floatval(implode('', $out)) * 100;
+            $compression_ratio = floatval($out) * 100;
 
             if ($status == 0) {
-                if ($as_file)
-                    return response()->download(storage_path("upload/$uuid.output"));
+                if ($response == 'file')
+                    return response()->download(storage_path("upload\\$uuid.output"));
+                else if ($response == 'compression_ratio')
+                    abort(200, "Compression Ratio: $compression_ratio%");
                 else
-                    return "compression ratio: $compression_ratio% <a href=\"/storage/$uuid.output\">download</a>";
+                    abort(200, 'Unknown response mode');
             }
+
+            abort(200, $out);
         }
-        return abort(500);
+
+        abort(200, 'Invalid input file');
+        return null;
     }
 }

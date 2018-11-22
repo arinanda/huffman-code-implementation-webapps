@@ -10,7 +10,7 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title>Huffman Code Implementation</title>
+    <title>Huffman Coding</title>
 
     <!-- Icons font CSS-->
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -31,26 +31,30 @@
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
                 <div class="card-body">
-                    <h2 class="title">Huffman Code Implementation</h2>
+                    <h2 class="title">Huffman Coding Implementation</h2>
                     <form method="post" action="{{url('/submit')}}" enctype="multipart/form-data">
+
                         {{ csrf_field() }}
+
                         <div class="input-group">
-                            <label class="label">File</label>
+                            <label class="label">Input File</label>
                             <input class="" type="file" name="input_file">
                         </div>
+
                         <div class="input-group">
-                            <label class="label"></label>
+                            <label class="label">Mode</label>
                             <div class="p-t-10">
                                 <label class="radio-container m-r-45">Compress
-                                    <input type="radio" name="compression_method" value="compress">
+                                    <input type="radio" name="mode" value="compress">
                                     <span class="checkmark"></span>
                                 </label>
                                 <label class="radio-container">Decompress
-                                    <input type="radio" name="compression_method" value="decompress">
+                                    <input type="radio" name="mode" value="decompress">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
                         </div>
+
                         <div class="input-group">
                             <label class="label">Method</label>
                             <div class="rs-select2 js-select-simple select--no-search">
@@ -63,15 +67,21 @@
                                 <div class="select-dropdown"></div>
                             </div>
                         </div>
+
                         <div class="input-group">
-                            <label class="label"></label>
+                            <label class="label">Response Type</label>
                             <div class="p-t-10">
-                                <label class="radio-container">
-                                    <input type="checkbox" name="as_file" value="true">Download when complete<br>
+                                <label class="radio-container m-r-45">File
+                                    <input type="radio" name="response" value="file">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="radio-container">Compression Ratio
+                                    <input type="radio" name="response" value="compression_ratio">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
                         </div>
+
                         <div class="p-t-15">
                             <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
                         </div>
